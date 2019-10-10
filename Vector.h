@@ -14,7 +14,7 @@ public:
 	~Vector();
 	Vector& operator= (const Vector &x);
 	Vector operator+ (const Vector &x);
-	Vector operator* (int k);
+	Vector operator* (float k);
 	void _input();
 	void _output();
 };

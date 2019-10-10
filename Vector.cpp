@@ -58,7 +58,7 @@ Vector Vector::operator+ (const Vector &x)
 	return temp;
 }
 
-Vector Vector::operator* (int k)
+Vector Vector::operator* (float k)
 {
 	for (int i = 0; i < _n; i++)
 		_data[i] *= k;

@@ -1,6 +1,7 @@
 #include "Vector.h"
 #include "Matrix.h"
 #include <conio.h>
+#include "Menu.h"
 
 int main()
 {
@@ -10,7 +11,7 @@ int main()
 	Vector c;
 	c = a + b;
 	c._output();*/
-	Matrix p;
+	/*Matrix p;
 	p._input();
 	p._output();
 	//Matrix q;
@@ -22,9 +23,10 @@ int main()
 	t = p * q;
 	t._output();*/
 
-	Matrix k = !p;
-	k._output();
-	
+	/*Matrix k = !p;
+	k._output();*/
+	Menu menu;
+	menu._drawMenu();
 	_getch();
 	return 0;
 }
