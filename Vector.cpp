@@ -49,10 +49,13 @@ Vector& Vector::operator= (const Vector &x)
 
 Vector Vector::operator+ (const Vector &x)
 {
-	if (_n != x._n) return { NULL, 0 };
+	Vector temp = Vector();
+	if (_n != x._n) 
+		return temp;
+	temp = Vector(x._n,0);
 	for (int i = 0; i < _n; i++)
-		_data[i] += x._data[i];
-	return *this;
+		temp._data[i] = _data[i] + x._data[i];
+	return temp;
 }
 
 Vector Vector::operator* (int k)
