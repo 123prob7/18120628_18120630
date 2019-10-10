@@ -3,7 +3,7 @@
 
 Matrix::Matrix()
 {
-	_a = NULL;
+	_data = NULL;
 	_m = 0;
 	_n = 0;
 }
@@ -11,32 +11,44 @@ Matrix::Matrix()
 Matrix::~Matrix()
 {
 	for (int i = 0; i < _m; i++)
-		delete[] _a[i];
-	delete[] _a;
+		delete[] _data[i];
+	delete[] _data;
 }
 
 Matrix::Matrix(const Matrix &x)
 {
 	_m = x._m;
 	_n = x._n;
-	_a = new float *[x._m];
+	_data = new float *[x._m];
 	for (int i = 0; i < x._m; i++)
-		_a[i] = new float[x._n];
+		_data[i] = new float[x._n];
 	for (int i = 0; i < _m; i++)
-	for (int j = 0; j < _n; j++)
-		_a[i][j] = x._a[i][j];
+		for (int j = 0; j < _n; j++)
+			_data[i][j] = x._data[i][j];
 }
 
 Matrix::Matrix(float **a, int m, int n)
 {
 	_m = m;
 	_n = n;
-	_a = new float *[m];
+	_data = new float *[m];
 	for (int i = 0; i < m; i++)
-		_a[i] = new float[n];
+		_data[i] = new float[n];
 	for (int i = 0; i < _m; i++)
-	for (int j = 0; j < _n; j++)
-		_a[i][j] = a[i][j];
+		for (int j = 0; j < _n; j++)
+			_data[i][j] = a[i][j];
+}
+
+Matrix::Matrix(int m, int n, float val)
+{
+	_m = m;
+	_n = n;
+	_data = new float *[m];
+	for (int i = 0; i < m; i++)
+		_data[i] = new float[n];
+	for (int i = 0; i < _m; i++)
+		for (int j = 0; j < _n; j++)
+			_data[i][j] = val;
 }
 
 void Matrix::_input()
@@ -44,56 +56,167 @@ void Matrix::_input()
 	cout << "Nhap ma tran co m dong, n cot:" << endl;
 	cout << "m = "; cin >> _m;
 	cout << "n = "; cin >> _n;
-	_a = new float*[_m];
+	_data = new float*[_m];
 	for (int i = 0; i < _m; i++)
-		_a[i] = new float[_n];
+		_data[i] = new float[_n];
 	for (int i = 0; i < _m; i++)
 	for (int j = 0; j < _n; j++)
 	{
 		cout << "a[" << i << "][" << j << "] = ";
-		cin >> _a[i][j];
+		cin >> _data[i][j];
 	}
 }
 
 void Matrix::_output()
 {
+	cout << endl;
 	for (int i = 0; i < _m; i++)
-	for (int j = 0; j < _n; j++)
-		cout << "a[" << i << "][" << j << "] = " << _a[i][j] << endl;
+	{
+		
+		for (int j = 0; j < _n; j++)
+			cout << "\t "<<_data[i][j] ;
+		cout << endl;
+
+	}
 }
 
 Matrix& Matrix::operator=(const Matrix &x)
 {
-	if (_a != NULL) {
+	if (_data != NULL) {
 		for (int i = 0; i < _m; i++)
-			delete[] _a[i];
-		delete[] _a;
+			delete[] _data[i];
+		delete[] _data;
 	}
 	_m = x._m;
 	_n = x._n;
-	_a = new float *[x._m];
+	_data = new float *[x._m];
 	for (int i = 0; i < x._m; i++)
-		_a[i] = new float[x._n];
+		_data[i] = new float[x._n];
 	for (int i = 0; i < _m; i++)
 	for (int j = 0; j < _n; j++)
-		_a[i][j] = x._a[i][j];
+		_data[i][j] = x._data[i][j];
 	return *this;
 }
-
-
 
 float Matrix::_determinant()
 {
 	//Determinant of square matrix. It's not suitable for non square one.
-	return DetOfMatrix(_a, _n);
+	if (_n == _m)
+		return DetOfMatrix(_data, _n);
+	else
+		cout << "Khong thuc hien duoc phep tinh vi khong phai MT vuong";
 }
+
+Matrix Matrix::operator*(const Matrix & x)//Ma tran co m dong, n cot
+{
+	Matrix tich = Matrix();
+	if (_n != x._m)
+	{
+		cout << "Khong thuc hien duoc phep tinh vi 2 MT khong cung cap" << endl;
+	}
+	else
+	{
+
+		tich = Matrix(_m, x._n, 0);
+		for (int i = 0; i < _m; i++)
+		{
+			for (int j = 0; j < x._n; j++)
+			{
+				tich._data[i][j] = 0;
+				for (int k = 0; k < _n; k++)
+					tich._data[i][j] += _data[i][k] * x._data[k][j];
+			}
+		}
+	}
+	return tich;
+	
+}
+
+Matrix Matrix::operator!()
+{
+	Matrix mtr_ngdao = Matrix();
+	if (_n != _m)
+	{
+		cout << "Chi co ma tran vuong moi co the co ma tran nghich dao" << endl;
+		return mtr_ngdao;;
+	}
+	if(this->_determinant()==0)
+	{
+		cout << "Ma tran khong kha nghich" << endl;
+		return mtr_ngdao;
+	}
+	mtr_ngdao = MatranPhuHop();
+	float det = _determinant();
+	for (int i = 0; i < mtr_ngdao._m; i++)
+	{
+		for (int j = 0; j < mtr_ngdao._n; j++)
+			mtr_ngdao._data[i][j] = (float)mtr_ngdao._data[i][j]/ det;
+	}
+	return mtr_ngdao;
+}
+
+Matrix Matrix::Chuyenvi()
+{
+	Matrix mtr_chvi = Matrix(_n, _m, 0);
+	for (int i = 0; i < mtr_chvi._m; i++)
+		for (int j = 0; j < mtr_chvi._n; j++)
+			mtr_chvi._data[i][j] = _data[j][i];
+	return mtr_chvi;
+}
+
+Matrix Matrix::MatranCon(int row_del, int col_del)
+// Tim ma tran con cua this sau khi xoa hang row_del va cot col_del
+{
+	Matrix temp = Matrix();
+	if (_m != _n)
+		return temp;
+	temp = Matrix(_n - 1, _n - 1, 0);
+	for (int i = 0; i < row_del; i++) 
+	{
+		for (int j = 0; j < col_del; j++)
+			temp._data[i][j] = _data[i][j];
+		for (int j = col_del; j < temp._n; j++)
+			temp._data[i][j] = _data[i][j + 1];
+	}
+	for (int i = row_del; i < temp._m; i++) {
+		for (int j = 0; j < col_del; j++)
+			temp._data[i][j] = _data[i + 1][j];
+		for (int j = col_del; j < temp._n; j++)
+			temp._data[i][j] = _data[i + 1][j + 1];
+	}
+	return temp;
+}
+
+Matrix Matrix::MatranPhuHop()
+{
+	Matrix temp = Matrix();
+	if (_m != _n)
+		return temp;
+	Matrix mtr=Matrix();
+	temp = Matrix(_m, _n, 0);
+	for (int i = 0; i < temp._m; i++)
+	{
+		for (int j = 0; j < temp._n; j++)
+		{
+			mtr = MatranCon(i, j);
+			if ((i + j) % 2 == 0)
+				temp._data[i][j] = mtr._determinant();
+			else
+				temp._data[i][j] = -1*mtr._determinant();
+		}
+	}
+	temp = temp.Chuyenvi();
+	return temp;
+}
+
+
 
 
 float DetOfMatrix(float **a, int n)
 {
 	if (n == 1) return a[0][0];
 	if (n == 2){
-		cout << a[0][0] << a[1][1] << a[0][1] << a[1][0] << endl;
+		//cout << a[0][0] << a[1][1] << a[0][1] << a[1][0] << endl;
 		return a[0][0] * a[1][1] - a[0][1] * a[1][0];
 	}
 	if (n > 2)
@@ -109,13 +232,13 @@ float DetOfMatrix(float **a, int n)
 
 
 			for (int k = 0; k < n - 1; k++)
-			for (int l = 0; l < n; l++)
-			{
-				if (l < j)
-					temp[k][l] = a[1 + k][l];
-				else if (l > j)
-					temp[k][l - 1] = a[1 + k][l];
-			}
+				for (int l = 0; l < n; l++)
+				{
+					if (l < j)
+						temp[k][l] = a[1 + k][l];
+					else if (l > j)
+						temp[k][l - 1] = a[1 + k][l];
+				}
 			//if (n == 4) cout << a[0][j] << endl;
 			if (j % 2 == 0)
 				det += a[0][j] * DetOfMatrix(temp, n - 1);
