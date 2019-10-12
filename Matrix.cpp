@@ -54,8 +54,14 @@ Matrix::Matrix(int m, int n, float val)
 void Matrix::input()
 {
 	cout << "Nhap ma tran co m dong, n cot:" << endl;
-	cout << "m = "; cin >> _m;
-	cout << "n = "; cin >> _n;
+	do {
+		cout << "m = ";
+		cin >> _m;
+	} while (_m < 0);
+	do{
+		cout << "n = ";
+		cin >> _n;
+	} while (_n < 0);
 	_data = new float*[_m];
 	for (int i = 0; i < _m; i++)
 		_data[i] = new float[_n];
@@ -69,14 +75,11 @@ void Matrix::input()
 
 void Matrix::output()
 {
-	cout << endl;
 	for (int i = 0; i < _m; i++)
 	{
-		
 		for (int j = 0; j < _n; j++)
-			cout << "\t "<<_data[i][j] ;
+			cout << _data[i][j] << "\t";
 		cout << endl;
-
 	}
 }
 
@@ -216,7 +219,6 @@ float DetOfMatrix(float **a, int n)
 {
 	if (n == 1) return a[0][0];
 	if (n == 2){
-		//cout << a[0][0] << a[1][1] << a[0][1] << a[1][0] << endl;
 		return a[0][0] * a[1][1] - a[0][1] * a[1][0];
 	}
 	if (n > 2)
@@ -239,7 +241,6 @@ float DetOfMatrix(float **a, int n)
 					else if (l > j)
 						temp[k][l - 1] = a[1 + k][l];
 				}
-			//if (n == 4) cout << a[0][j] << endl;
 			if (j % 2 == 0)
 				det += a[0][j] * DetOfMatrix(temp, n - 1);
 			else if (j % 2 != 0)
@@ -290,7 +291,7 @@ Matrix Matrix::MaTranBacThang()
 	return temp;
 }
 
-int Matrix::rankOfMatrix()
+int Matrix::rank()
 {
 	Matrix temp = this->MaTranBacThang();
 	int rank = 0;
@@ -303,3 +304,51 @@ int Matrix::rankOfMatrix()
 	}
 	return rank;
 }
+
+Matrix Matrix::operator* (float k)
+{
+	for (int i = 0; i < _m;i++)
+	for (int j = 0; j < _n; j++)
+		_data[i][j] *= k;
+	return *this;
+}
+
+int Matrix::MatrixEquation(const Matrix& b)
+{
+	if (b._m != _m || b._n != 1) return 0;
+	Matrix A;
+	A._m = _m;
+	A._n = _n + 1;
+	A._data = new float*[_m];
+	for (int i = 0; i < _m; i++)
+		A._data[i] = new float[_n + 1];
+	
+	for (int i = 0; i < _m; i++)
+	for (int j = 0; j < _n; j++)
+		A._data[i][j] = _data[i][j];
+	for (int i = 0; i < _m; i++)
+		A._data[i][_n] = b._data[i][0];
+
+	int rank_A = A.rank();
+	int rank_this = this->rank();
+	if (rank_this < rank_A)
+		cout << "He vo nghiem" << endl;
+	else if (rank_A == rank_this && rank_A == _n)
+	{
+		cout << "He co nghiem duy nhat" << endl;
+		// A*X = B => X = A^-1*B
+		float det = this->determinant();
+		Matrix temp;
+		temp = this->MatranPhuHop();
+		temp = temp* (1.0 / det);
+		Matrix result(b);
+		result = temp*b;
+		result.output();
+	}
+	else if (rank_A == rank_this && rank_A < _n)
+	{
+		cout << "He phuong trinh co vo so nghiem voi bac tu do la " << _n - rank_this << endl;
+	}
+	return 1;
+}
+

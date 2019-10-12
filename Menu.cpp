@@ -174,7 +174,7 @@ void Menu::_drawMenu()
 						  cursortype();
 						  cout << "----------Hang cua ma tran----------" << endl << "Nhap ma tran:" << endl;
 						  a.input();
-						  cout << "r(a) = " << a.rankOfMatrix() << endl;
+						  cout << "r(a) = " << a.rank() << endl;
 
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
@@ -186,10 +186,17 @@ void Menu::_drawMenu()
 						  clrscr();
 						  gotoXY(0, 0);
 						  cursortype();
-						  cout << "----------He phuong trinh tuyen tinh----------" << endl << "Nhap ma tran:" << endl;
-						  //a._input();
-						  cout << ".... " << endl;
-
+						  cout << "----------He phuong trinh tuyen tinh----------" << endl << "Nhap ma tran he so cua nghiem X:" << endl;
+						  a.input();
+						  Matrix b;
+						  cout << "Nhap ma tran ket qua:" << endl;
+						  b.input();
+						  while (a.MatrixEquation(b) == 0)
+						  {
+							  cout << "\nDu lieu nhap khong khop!\n";
+							  b.~Matrix();
+							  b.input();
+						  }
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
 						  _getch();

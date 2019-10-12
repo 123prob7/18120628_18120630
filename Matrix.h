@@ -25,7 +25,10 @@ public:
 	Matrix MatranPhuHop();
 
 	Matrix MaTranBacThang();
-	int rankOfMatrix();
+	int rank();
+
+	int MatrixEquation(const Matrix& b);
+	Matrix operator* (float k);
 };
 
 float DetOfMatrix(float **a, int n);
