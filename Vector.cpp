@@ -65,7 +65,7 @@ Vector Vector::operator* (float k)
 	return *this;
 }
 
-void Vector::_input()
+void Vector::input()
 {
 	cout << "\nNhap vao so luong phan tu: n = ";
 	cin >> _n;
@@ -77,7 +77,7 @@ void Vector::_input()
 	}
 }
 
-void Vector::_output()
+void Vector::output()
 {
 	for (int i = 0; i < _n; i++)
 		cout << "\t" << _data[i];

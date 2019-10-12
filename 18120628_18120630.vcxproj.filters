@@ -50,11 +50,11 @@
     <ClInclude Include="Vector.h">
       <Filter>Header Files\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>Header Files\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,14 +1,10 @@
-﻿Build started 10/10/2019 10:12:38 PM.
+﻿Build started 10/12/2019 4:14:51 PM.
      1>Project "D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\18120628_18120630\18120628_18120630.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Menu.cpp Vector.cpp main.cpp
-         Vector.cpp
-         Generating Code...
-         Compiling...
-         Menu.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Matrix.cpp
+         Matrix.cpp
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\matrix.cpp(108): warning C4715: 'Matrix::determinant' : not all control paths return a value
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\matrix.cpp(254): warning C4715: 'DetOfMatrix' : not all control paths return a value
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.lib" /MACHINE:X86 Debug\Karnaugh.obj
          Debug\main.obj
@@ -20,4 +16,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.32
+Time Elapsed 00:00:00.63

@@ -51,7 +51,7 @@ Matrix::Matrix(int m, int n, float val)
 			_data[i][j] = val;
 }
 
-void Matrix::_input()
+void Matrix::input()
 {
 	cout << "Nhap ma tran co m dong, n cot:" << endl;
 	cout << "m = "; cin >> _m;
@@ -67,7 +67,7 @@ void Matrix::_input()
 	}
 }
 
-void Matrix::_output()
+void Matrix::output()
 {
 	cout << endl;
 	for (int i = 0; i < _m; i++)
@@ -98,7 +98,7 @@ Matrix& Matrix::operator=(const Matrix &x)
 	return *this;
 }
 
-float Matrix::_determinant()
+float Matrix::determinant()
 {
 	//Determinant of square matrix. It's not suitable for non square one.
 	if (_n == _m)
@@ -140,13 +140,13 @@ Matrix Matrix::operator!()
 		cout << "Chi co ma tran vuong moi co the co ma tran nghich dao" << endl;
 		return mtr_ngdao;;
 	}
-	if(this->_determinant()==0)
+	if(this->determinant()==0)
 	{
 		cout << "Ma tran khong kha nghich" << endl;
 		return mtr_ngdao;
 	}
 	mtr_ngdao = MatranPhuHop();
-	float det = _determinant();
+	float det = determinant();
 	for (int i = 0; i < mtr_ngdao._m; i++)
 	{
 		for (int j = 0; j < mtr_ngdao._n; j++)
@@ -200,9 +200,9 @@ Matrix Matrix::MatranPhuHop()
 		{
 			mtr = MatranCon(i, j);
 			if ((i + j) % 2 == 0)
-				temp._data[i][j] = mtr._determinant();
+				temp._data[i][j] = mtr.determinant();
 			else
-				temp._data[i][j] = -1*mtr._determinant();
+				temp._data[i][j] = -1*mtr.determinant();
 		}
 	}
 	temp = temp.Chuyenvi();
@@ -253,3 +253,53 @@ float DetOfMatrix(float **a, int n)
 	}
 }
 
+Matrix Matrix::MaTranBacThang()
+{
+	Matrix temp(*this);
+	int key = 0;
+	for (int i = 0; i < _m; i++)
+	{
+		for (int j = i; j < _n; j++)
+		{
+			if (temp._data[i][j] != 0)
+			{
+				for (int k = i + 1; k < _m; k++)
+				{
+					float t = temp._data[k][j] / temp._data[i][j];
+					for (int l = j; l < _n; l++)
+						temp._data[k][l] -= t * temp._data[i][l];
+				}
+				break;
+			}
+			else
+			{
+				for (int k = i + 1; k < _m; k++)
+				{
+					if (temp._data[k][j] != 0)
+					{
+						for (int l = 0; l < _n; l++)
+							swap(temp._data[i][l], temp._data[k][l]);
+						key = 3;
+						break;
+					}
+				}
+				if (key == 3) j--;
+			}
+		}
+	}
+	return temp;
+}
+
+int Matrix::rankOfMatrix()
+{
+	Matrix temp = this->MaTranBacThang();
+	int rank = 0;
+	for (int i = 0; i < temp._m; i++)
+	for (int j = i; j < temp._n; j++)
+	if (temp._data[i][j] != 0)
+	{
+		rank++;
+		break;
+	}
+	return rank;
+}

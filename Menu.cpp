@@ -69,15 +69,15 @@ void Menu::_drawMenu()
 						  gotoXY(0, 0);
 						  cursortype();
 						  cout << "----------Phep toan cong 2 vector----------" << endl << "Nhap 2 vector:" << endl;
-						  a._input();
-						  b._input();
+						  a.input();
+						  b.input();
 						  cout << "Hai vector vua nhap:" << endl;
-						  a._output();
-						  b._output();
+						  a.output();
+						  b.output();
 						  Vector c;
 						  cout << "\nTong 2 vector:\n";
 						  c = a + b;
-						  c._output();
+						  c.output();
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
 						  _getch();
@@ -89,14 +89,14 @@ void Menu::_drawMenu()
 						  gotoXY(0, 0);
 						  cursortype();
 						  cout << "-------Nhan vector voi 1 so alpha-------" << endl << "Nhap vector:" << endl;
-						  a._input();
+						  a.input();
 						  cout << "Nhap hang so alpha: k = ";
 						  float k;
 						  cin >> k;
 						  cout << "Ket qua:" << endl;
 						  Vector b;
 						  b = a*k;
-						  b._output();
+						  b.output();
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
 						  _getch();
@@ -127,8 +127,8 @@ void Menu::_drawMenu()
 						  gotoXY(0, 0);
 						  cursortype();
 						  cout << "----------Tim dinh thuc cua ma tran----------" << endl << "Nhap ma tran:" << endl;
-						  a._input();
-						  cout << "det(a) = " << a._determinant() << endl;
+						  a.input();
+						  cout << "det(a) = " << a.determinant() << endl;
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
 						  _getch();
@@ -155,12 +155,12 @@ void Menu::_drawMenu()
 						  gotoXY(0, 0);
 						  cursortype();
 						  cout << "----------Tich 2 ma tran----------" << endl << "Nhap ma tran:" << endl;
-						  a._input();
-						  b._input();
+						  a.input();
+						  b.input();
 						  cout << "Ket qua:" << endl;
 						  Matrix c;
 						  c = a *b;
-						  c._output();
+						  c.output();
 
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();
@@ -173,8 +173,8 @@ void Menu::_drawMenu()
 						  gotoXY(0, 0);
 						  cursortype();
 						  cout << "----------Hang cua ma tran----------" << endl << "Nhap ma tran:" << endl;
-						  //a._input();
-						  cout << "r(a) = " << endl;
+						  a.input();
+						  cout << "r(a) = " << a.rankOfMatrix() << endl;
 
 						  cout << "Nhan phim bat ky de quay lai";
 						  Nocursortype();

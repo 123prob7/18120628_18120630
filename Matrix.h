@@ -14,17 +14,18 @@ public:
 	Matrix(float **a, int m, int n);
 	Matrix(int m, int n,float val);
 	~Matrix();
-	void _input();
-	void _output();
+	void input();
+	void output();
 	Matrix& operator= (const Matrix &x);
-	float _determinant();
+	float determinant();
 	Matrix operator* (const Matrix &x);
 	Matrix operator! ();
 	Matrix Chuyenvi();
 	Matrix MatranCon(int row_del, int col_del);
 	Matrix MatranPhuHop();
 
-	
+	Matrix MaTranBacThang();
+	int rankOfMatrix();
 };
 
 float DetOfMatrix(float **a, int n);
