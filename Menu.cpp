@@ -54,6 +54,7 @@ void Menu::_drawMenu()
 				  getline(cin, s);
 				  LIST a;
 				  a.parseStr(a.tokenizeInputStr(s));
+				  a.createData();
 				  a.sort();
 				  a.output();
 				  cout << "Nhan phim bat ky de quay lai";
