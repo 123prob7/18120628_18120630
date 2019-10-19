@@ -8,6 +8,7 @@ TuToiTieu::TuToiTieu()
 {
 	_bin = "0000";
 	_index = 0;
+	_tick = 0;
 }
 
 TuToiTieu::~TuToiTieu()
@@ -18,12 +19,14 @@ TuToiTieu::TuToiTieu(const TuToiTieu &n)
 {
 	_bin = n._bin;
 	_index = n._index;
+	_tick = n._tick;
 }
 
-TuToiTieu::TuToiTieu(const string &bin, const int &index)
+TuToiTieu::TuToiTieu(const string &bin, const int &index, const int &tick)
 {
 	_bin = bin;
 	_index = index;
+	_tick = tick;
 }
 
 void TuToiTieu::setBin(string bin)
@@ -64,6 +67,7 @@ TuToiTieu& TuToiTieu::operator=(const TuToiTieu &n)
 {
 	_bin = n._bin;
 	_index = n._index;
+	_tick = n._tick;
 	return *this;
 }
 

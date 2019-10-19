@@ -13,14 +13,17 @@ class TuToiTieu
 private:
 	string _bin;
 	int _index;	//So luong chu so 1 trong _bin
+	int _tick;
 	void bin2Index();
 public:
 	TuToiTieu();
 	TuToiTieu(const TuToiTieu &n);
-	TuToiTieu(const string &bin, const int &index);
+	TuToiTieu(const string &bin, const int &index, const int &tick);
 	void setBin(string bin);
 	string getBin() { return _bin; }
 	int getIndex() { return _index; }
+	void setTick() { _tick = 1; }
+	int getTick() { return _tick; }
 
 	void output();
 	int Bin2Dec();	//Chuyen binary sang decimal
