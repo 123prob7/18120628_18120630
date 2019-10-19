@@ -8,23 +8,40 @@ using namespace std;
 //This algorithm is followed by Quine-McCluskey method
 
 
-class Chain
+class TuToiTieu
 {
-	vector<int> _bin;	//Binary rotation	, Example: 0000, 1010
-	int _index;	//Index							0,	2
-	int _dec;	//Decimal value					0,	10
+private:
+	string _bin;
+	int _index;	//So luong chu so 1 trong _bin
 public:
-	Chain();
-	Chain(const Chain &n) { _bin = n._bin; _index = n._index; _dec = n._dec; }
-	Chain(vector<int> bin, int index, int dec) {_bin = bin; _index = index; _dec = dec; }
-	void parseString(string s);
-	void parseNumber(int n);
+	TuToiTieu();
+	TuToiTieu(const TuToiTieu &n);
+	TuToiTieu(const string &bin, const int &index);
+	void setBin(string bin); 
+	int getIndex() { return _index; }
+	void output();
+	int Bin2Dec();	//Chuyen binary sang decimal
+	int Str2integer();
+	TuToiTieu& operator= (const TuToiTieu &n);
+	~TuToiTieu();
+};
 
-	~Chain();
+class LIST
+{
+private:
+	TuToiTieu *_data;
+	int _n;
+public:
+	LIST();
+	LIST(const LIST &n);
+	LIST(TuToiTieu *a, int n);
+	vector<string> tokenizeInputStr(string str);
+	void parseStr(const vector<string> &str);
+	void sort();
+	void output();
+	~LIST();
 };
 
 
-int Vec2Num(vector<int> x);
-int Bin2Dec(int n);	//Chuyen binary sang decimal
-int Bin2Index(int n);	//Chuyen binary sang index value
-int Dec2Bin(int n);
+
+

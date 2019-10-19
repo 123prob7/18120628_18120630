@@ -44,8 +44,22 @@ void Menu::_drawMenu()
 		{
 		case 1:
 		{
-
-
+				  clrscr();
+				  cursortype();
+				  gotoXY(0, 0);
+				  cout << "-------Tim tat ca cac cong thuc da thuc toi tieu-------" << endl;
+				  cout << "Nhap vao chuoi input: f(w, x, y, z) = ";
+				  string s;
+				  fflush(stdin);
+				  getline(cin, s);
+				  LIST a;
+				  a.parseStr(a.tokenizeInputStr(s));
+				  a.sort();
+				  a.output();
+				  cout << "Nhan phim bat ky de quay lai";
+				  Nocursortype();
+				  _getch();
+				  _key = 0;
 				  break;
 		}
 		case 2:
