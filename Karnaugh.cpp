@@ -356,6 +356,15 @@ void LIST::createData()
 	_n = size;
 	_data = result;
 }
+bool LIST::vector_(vector<TuToiTieu> kt, TuToiTieu x)
+{
+	for (int i = 0; i < kt.size(); i++)
+	{
+		if (kt[i].getBin() == x.getBin())
+			return true;
+	}
+	return false;
+}
 LIST LIST::paste()
 {
 	createData();
