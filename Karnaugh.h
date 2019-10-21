@@ -28,9 +28,11 @@ public:
 	void output();
 	int Bin2Dec();	//Chuyen binary sang decimal
 	int Str2integer();
-	bool flag(const TuToiTieu&n);//2 chuoi bin co 1 ki tu khac
-	TuToiTieu replace(const TuToiTieu&n);//Thay the: vidu: 0011 va 0010 thanh 001-
 	TuToiTieu& operator= (const TuToiTieu &n);
+	int checkTick();
+	int isCombined(const TuToiTieu &a);
+	TuToiTieu combine(TuToiTieu &a);
+	int isEssential(const TuToiTieu &a);
 	~TuToiTieu();
 };
 
@@ -48,11 +50,17 @@ public:
 	void sort();
 	void output();
 	void createData();
-	bool vector_(vector<TuToiTieu> kt, TuToiTieu x);// Xem x._bin co trong vector kt khong 
-	LIST paste();
+	int checkTick();
+	vector<TuToiTieu> toVector();
+	LIST vectorToList(const vector<TuToiTieu> &a);
+	LIST& operator= (const LIST &n);
+	int size() { return _n; }
+	TuToiTieu& operator[](int i);
+	int** chartRemoveRedundant(const LIST &a);
 	~LIST();
 };
 
+vector<TuToiTieu> solvePrimeImplicants(LIST a);
 
 
 

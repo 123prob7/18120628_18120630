@@ -79,32 +79,51 @@ void TuToiTieu::bin2Index()
 		count++;
 	_index = count;
 }
-TuToiTieu TuToiTieu::replace(const TuToiTieu & n)
+
+int TuToiTieu::checkTick()
 {
-	TuToiTieu temp=TuToiTieu();
-	temp._bin = "";
-	for (int i = 0; i < _bin.length(); i++)
-	{
-		
-		if (_bin[i] == n._bin[i])
-			temp._bin += _bin[i];
-		else
-			temp._bin += "-";
-	}
-	return temp;
+	return _tick;
 }
-bool TuToiTieu::flag(const TuToiTieu & n)
+
+int TuToiTieu::isCombined(const TuToiTieu &a)
 {
-	int dem = 0;
+	if (_index != a._index - 1)
+		return 0;
+	int difference = 0;
 	for (int i = 0; i < _bin.length(); i++)
-	{
-		if (_bin[i] != n._bin[i])
-			dem++;
-	}
-	if (dem == 1)
-		return true;
-	return false;
+	if (_bin[i] != a._bin[i])
+		difference++;
+	if (difference != 1)
+		return 0;
+	return 1;
 }
+
+TuToiTieu TuToiTieu::combine(TuToiTieu &a)
+{
+	TuToiTieu result;
+	result.setBin("");
+	if (isCombined(a))
+	{
+		for (int i = 0; i < _bin.length(); i++)
+		if (_bin[i] == a._bin[i])
+			result._bin.push_back(_bin[i]);
+		else result._bin.push_back('-');
+		_tick = 1;
+		a._tick = 1;
+		result.bin2Index();;
+		return result;
+	}
+	return result;
+}
+
+int TuToiTieu::isEssential(const TuToiTieu &a)
+{
+	for (int i = 0; i < _bin.length(); i++)
+		if (_bin[i] != '-' && _bin[i] != a._bin[i])
+			return 0;
+	return 1;
+}
+
 // ==================
 
 
@@ -356,49 +375,96 @@ void LIST::createData()
 	_n = size;
 	_data = result;
 }
-bool LIST::vector_(vector<TuToiTieu> kt, TuToiTieu x)
+
+int LIST::checkTick()
 {
-	for (int i = 0; i < kt.size(); i++)
-	{
-		if (kt[i].getBin() == x.getBin())
-			return true;
-	}
-	return false;
+	for (int i = 0; i < _n; i++)
+	if (_data[i].checkTick() != 0)
+		return 1;
+	return 0;
 }
-LIST LIST::paste()
+
+vector<TuToiTieu> LIST::toVector()
 {
-	createData();
-	sort();
-	vector<TuToiTieu> result ;
-	for (int i = 0; i < _n - 1; i++)
-	{
-		for (int j = i + 1; j < _n; j++)
-		{
-			if (_data[i].flag(_data[j]))
-			{
-				_data[i].setTick();
-				_data[i].setTick();
-				TuToiTieu temp = _data[i].replace(_data[j]);
-				if (vector_(result, temp) == false)
-					result.push_back(temp);
+	vector<TuToiTieu> result;
+	for (int i = 0; i < _n; i++)
+		result.push_back(_data[i]);
+	return result;
+}
 
-			}
+LIST LIST::vectorToList(const vector<TuToiTieu> &a)
+{
+	if (_data != NULL)
+		delete[] _data;
+	_n = a.size();
+	_data = new TuToiTieu[_n];
+	for (int i = 0; i < a.size(); i++)
+		_data[i] = a[i];
+	return *this;
+}
 
-		}
-	}
-	LIST t = LIST ();
-	t._data = new TuToiTieu[result.size()];
-	t._n = result.size();
-	for (int i = 0; i < t._n; i++)
-	{
-		t._data[i].setBin(result[i].getBin());
-	}
-	return t;
+LIST& LIST::operator= (const LIST &n)
+{
+	if (_data != NULL)
+		delete[] _data;
+	_n = n._n;
+	_data = new TuToiTieu[n._n];
+	for (int i = 0; i < _n; i++)
+		_data[i] = n._data[i];
+	return *this;
+}
 
+TuToiTieu& LIST::operator[](int i)
+{
+	return _data[i];
 }
 
 // ===============================
 
+vector<TuToiTieu> solvePrimeImplicants(LIST a)
+{
+	vector<LIST> group;
+	LIST l;
+	l = a;
+	do {
+		vector<TuToiTieu> list2;
+		for (int i = 0; i < l.size() - 1; i++)
+		for (int j = i + 1; j < l.size(); j++)
+		{
+			if (l[i].isCombined(l[j]))
+			{
+				TuToiTieu temp;
+				temp = l[i].combine(l[j]);
+				list2.push_back(temp);
+			}
+		}
+		group.push_back(l);
+		l = l.vectorToList(list2);
+	} while (group[group.size() - 1].checkTick() != 0);
 
+	vector<TuToiTieu> result;
+	for (int i = 0; i < group.size(); i++)
+	for (int j = 0; j < group[i].size(); j++)
+	if (group[i][j].checkTick() == 0)
+		result.push_back(group[i][j]);
+
+	for (int i = 0; i < result.size() - 1; i++)
+	for (int j = i + 1; j < result.size(); j++)
+	if (result[i].getBin() == result[j].getBin())
+		result.erase(result.begin() + j);
+	return result;
+}
+
+int** LIST::chartRemoveRedundant(const LIST &a)
+{
+	int**result;
+	*result = new int[this->_n];
+	for (int i = 0; i < _n; i++)
+		result[i] = new int[a._n];
+	for (int i = 0; i < _n; i++)
+	for (int j = 0; j < a._n; j++)
+		result[i][j] = _data[i].isEssential(a._data[j]);
+
+}
 
 
