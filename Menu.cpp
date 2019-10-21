@@ -56,7 +56,9 @@ void Menu::_drawMenu()
 				  a.parseStr(a.tokenizeInputStr(s));
 				  a.createData();
 				  a.sort();
-				  a.output();
+				  LIST b;
+				  b.vectorToList(solvePrimeImplicants(a));
+				  b.output();
 				  cout << "Nhan phim bat ky de quay lai";
 				  Nocursortype();
 				  _getch();

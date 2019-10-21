@@ -80,6 +80,42 @@ void TuToiTieu::bin2Index()
 	_index = count;
 }
 
+int TuToiTieu::checkTick()
+{
+	return _tick;
+}
+
+int TuToiTieu::isCombined(const TuToiTieu &a)
+{
+	if (_index != a._index - 1)
+		return 0;
+	int difference = 0;
+	for (int i = 0; i < _bin.length(); i++)
+	if (_bin[i] != a._bin[i])
+		difference++;
+	if (difference != 1)
+		return 0;
+	return 1;
+}
+
+TuToiTieu TuToiTieu::combine(TuToiTieu &a)
+{
+	TuToiTieu result;
+	result.setBin("");
+	if (isCombined(a))
+	{
+		for (int i = 0; i < _bin.length(); i++)
+		if (_bin[i] == a._bin[i])
+			result._bin.push_back(_bin[i]);
+		else result._bin.push_back('-');
+		_tick = 1;
+		a._tick = 1;
+		result.bin2Index();;
+		return result;
+	}
+	return result;
+}
+
 // ==================
 
 
@@ -332,8 +368,83 @@ void LIST::createData()
 	_data = result;
 }
 
+int LIST::checkTick()
+{
+	for (int i = 0; i < _n; i++)
+	if (_data[i].checkTick() != 0)
+		return 1;
+	return 0;
+}
+
+vector<TuToiTieu> LIST::toVector()
+{
+	vector<TuToiTieu> result;
+	for (int i = 0; i < _n; i++)
+		result.push_back(_data[i]);
+	return result;
+}
+
+LIST LIST::vectorToList(const vector<TuToiTieu> &a)
+{
+	if (_data != NULL)
+		delete[] _data;
+	_n = a.size();
+	_data = new TuToiTieu[_n];
+	for (int i = 0; i < a.size(); i++)
+		_data[i] = a[i];
+	return *this;
+}
+
+LIST& LIST::operator= (const LIST &n)
+{
+	if (_data != NULL)
+		delete[] _data;
+	_n = n._n;
+	_data = new TuToiTieu[n._n];
+	for (int i = 0; i < _n; i++)
+		_data[i] = n._data[i];
+	return *this;
+}
+
+TuToiTieu& LIST::operator[](int i)
+{
+	return _data[i];
+}
+
 // ===============================
 
+vector<TuToiTieu> solvePrimeImplicants(LIST a)
+{
+	vector<LIST> group;
+	LIST l;
+	l = a;
+	do {
+		vector<TuToiTieu> list2;
+		for (int i = 0; i < l.size() - 1; i++)
+		for (int j = i + 1; j < l.size(); j++)
+		{
+			if (l[i].isCombined(l[j]))
+			{
+				TuToiTieu temp;
+				temp = l[i].combine(l[j]);
+				list2.push_back(temp);
+			}
+		}
+		group.push_back(l);
+		l = l.vectorToList(list2);
+	} while (group[group.size() - 1].checkTick() != 0);
 
+	vector<TuToiTieu> result;
+	for (int i = 0; i < group.size(); i++)
+	for (int j = 0; j < group[i].size(); j++)
+	if (group[i][j].checkTick() == 0)
+		result.push_back(group[i][j]);
+
+	for (int i = 0; i < result.size() - 1; i++)
+	for (int j = i + 1; j < result.size(); j++)
+	if (result[i].getBin() == result[j].getBin())
+		result.erase(result.begin() + j);
+	return result;
+}
 
 

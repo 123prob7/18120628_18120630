@@ -29,6 +29,9 @@ public:
 	int Bin2Dec();	//Chuyen binary sang decimal
 	int Str2integer();
 	TuToiTieu& operator= (const TuToiTieu &n);
+	int checkTick();
+	int isCombined(const TuToiTieu &a);
+	TuToiTieu combine(TuToiTieu &a);
 	~TuToiTieu();
 };
 
@@ -46,9 +49,16 @@ public:
 	void sort();
 	void output();
 	void createData();
+	int checkTick();
+	vector<TuToiTieu> toVector();
+	LIST vectorToList(const vector<TuToiTieu> &a);
+	LIST& operator= (const LIST &n);
+	int size() { return _n; }
+	TuToiTieu& operator[](int i);
 	~LIST();
 };
 
+vector<TuToiTieu> solvePrimeImplicants(LIST a);
 
 
 
