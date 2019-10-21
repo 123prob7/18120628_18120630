@@ -28,6 +28,8 @@ public:
 	void output();
 	int Bin2Dec();	//Chuyen binary sang decimal
 	int Str2integer();
+	bool flag(const TuToiTieu&n);//2 chuoi bin co 1 ki tu khac
+	TuToiTieu replace(const TuToiTieu&n);//Thay the: vidu: 0011 va 0010 thanh 001-
 	TuToiTieu& operator= (const TuToiTieu &n);
 	~TuToiTieu();
 };
@@ -46,6 +48,8 @@ public:
 	void sort();
 	void output();
 	void createData();
+	bool vector_(vector<TuToiTieu> kt, TuToiTieu x);// Xem x._bin co trong vector kt khong 
+	LIST paste();
 	~LIST();
 };
 
