@@ -116,6 +116,14 @@ TuToiTieu TuToiTieu::combine(TuToiTieu &a)
 	return result;
 }
 
+int TuToiTieu::isEssential(const TuToiTieu &a)
+{
+	for (int i = 0; i < _bin.length(); i++)
+		if (_bin[i] != '-' && _bin[i] != a._bin[i])
+			return 0;
+	return 1;
+}
+
 // ==================
 
 
@@ -445,6 +453,18 @@ vector<TuToiTieu> solvePrimeImplicants(LIST a)
 	if (result[i].getBin() == result[j].getBin())
 		result.erase(result.begin() + j);
 	return result;
+}
+
+int** LIST::chartRemoveRedundant(const LIST &a)
+{
+	int**result;
+	*result = new int[this->_n];
+	for (int i = 0; i < _n; i++)
+		result[i] = new int[a._n];
+	for (int i = 0; i < _n; i++)
+	for (int j = 0; j < a._n; j++)
+		result[i][j] = _data[i].isEssential(a._data[j]);
+
 }
 
 

@@ -32,6 +32,7 @@ public:
 	int checkTick();
 	int isCombined(const TuToiTieu &a);
 	TuToiTieu combine(TuToiTieu &a);
+	int isEssential(const TuToiTieu &a);
 	~TuToiTieu();
 };
 
@@ -55,6 +56,7 @@ public:
 	LIST& operator= (const LIST &n);
 	int size() { return _n; }
 	TuToiTieu& operator[](int i);
+	int** chartRemoveRedundant(const LIST &a);
 	~LIST();
 };
 
