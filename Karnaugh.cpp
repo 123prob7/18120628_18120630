@@ -79,7 +79,32 @@ void TuToiTieu::bin2Index()
 		count++;
 	_index = count;
 }
-
+TuToiTieu TuToiTieu::replace(const TuToiTieu & n)
+{
+	TuToiTieu temp=TuToiTieu();
+	temp._bin = "";
+	for (int i = 0; i < _bin.length(); i++)
+	{
+		
+		if (_bin[i] == n._bin[i])
+			temp._bin += _bin[i];
+		else
+			temp._bin += "-";
+	}
+	return temp;
+}
+bool TuToiTieu::flag(const TuToiTieu & n)
+{
+	int dem = 0;
+	for (int i = 0; i < _bin.length(); i++)
+	{
+		if (_bin[i] != n._bin[i])
+			dem++;
+	}
+	if (dem == 1)
+		return true;
+	return false;
+}
 // ==================
 
 
@@ -330,6 +355,37 @@ void LIST::createData()
 	}
 	_n = size;
 	_data = result;
+}
+LIST LIST::paste()
+{
+	createData();
+	sort();
+	vector<TuToiTieu> result ;
+	for (int i = 0; i < _n - 1; i++)
+	{
+		for (int j = i + 1; j < _n; j++)
+		{
+			if (_data[i].flag(_data[j]))
+			{
+				_data[i].setTick();
+				_data[i].setTick();
+				TuToiTieu temp = _data[i].replace(_data[j]);
+				if (vector_(result, temp) == false)
+					result.push_back(temp);
+
+			}
+
+		}
+	}
+	LIST t = LIST ();
+	t._data = new TuToiTieu[result.size()];
+	t._n = result.size();
+	for (int i = 0; i < t._n; i++)
+	{
+		t._data[i].setBin(result[i].getBin());
+	}
+	return t;
+
 }
 
 // ===============================
