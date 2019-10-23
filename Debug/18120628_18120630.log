@@ -1,23 +1,33 @@
-﻿Build started 10/21/2019 12:53:25 PM.
+﻿Build started 10/23/2019 8:03:25 PM.
      1>Project "D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\18120628_18120630\18120628_18120630.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Karnaugh.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Karnaugh.cpp Menu.cpp main.cpp
          Karnaugh.cpp
      1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(61): warning C4018: '<' : signed/unsigned mismatch
      1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(77): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(93): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(107): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(156): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(180): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(263): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(282): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(294): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(311): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(340): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(393): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(438): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(443): warning C4018: '<' : signed/unsigned mismatch
-     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(444): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(100): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(114): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(128): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(171): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(195): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(278): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(297): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(309): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(326): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(355): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(394): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(395): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(431): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(490): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(505): warning C4018: '>=' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(563): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(568): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(569): warning C4018: '<' : signed/unsigned mismatch
+     1>d:\game\hao\code\ctdl\đồ án 1\18120628_18120630\18120628_18120630\karnaugh.cpp(580): warning C4018: '<' : signed/unsigned mismatch
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         main.cpp
+         Menu.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\game\hao\code\CTDL\Đồ Án 1\18120628_18120630\Debug\18120628_18120630.lib" /MACHINE:X86 Debug\Karnaugh.obj
          Debug\main.obj
@@ -29,4 +39,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.60
+Time Elapsed 00:00:00.75
