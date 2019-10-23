@@ -85,6 +85,13 @@ int TuToiTieu::checkTick()
 	return _tick;
 }
 
+int TuToiTieu::operator==(const TuToiTieu &n)
+{
+	if (_bin == n._bin && _index == n._index && _tick == n._tick)
+		return 1;
+	return 0;
+}
+
 int TuToiTieu::isCombined(const TuToiTieu &a)
 {
 	if (_index != a._index - 1)
@@ -376,6 +383,29 @@ void LIST::createData()
 	_data = result;
 }
 
+void LIST::removeDuplicates()
+{
+	vector<TuToiTieu> k;
+	for (int i = 0; i < _n; i++)
+	{
+		TuToiTieu temp = _data[i];
+		k.push_back(temp);
+	}
+	for (int i = 0; i < k.size() - 1; i++)
+	for (int j = i + 1; j < k.size(); j++)
+	if (k[i] == k[j])
+	{
+		k.erase(k.begin() + j);
+		_n--;
+	}
+	delete[] _data;
+	_data = new TuToiTieu[_n];
+	int i = 0;
+	for (vector<TuToiTieu>::iterator itr = k.begin(); itr != k.end(); itr++)
+		_data[i++] = *itr;
+
+}
+
 int LIST::checkTick()
 {
 	for (int i = 0; i < _n; i++)
@@ -419,6 +449,93 @@ TuToiTieu& LIST::operator[](int i)
 	return _data[i];
 }
 
+int** LIST::createPrimeImplicantsTable(const LIST &a)
+{
+	int**arr;
+	arr = new int*[this->_n];
+	for (int i = 0; i < _n; i++)
+		arr[i] = new int[a._n];
+	int row = _n;
+	int col = a._n;
+	for (int i = 0; i < row; i++)
+	for (int j = 0; j < col; j++)
+		arr[i][j] = _data[i].isEssential(a._data[j]);
+	return arr;
+}
+
+set<set<int>> LIST::allMinSpawn(int** arr, const LIST &a)
+{
+	vector<set<int>> petLogic;
+	int row = _n;
+	int col = a._n;
+	for (int j = 0; j < col; j++)	//column iteration
+	{
+		set<int> x;
+		for (int i = 0; i < row; i++)	//row iteration
+		{
+			if (arr[i][j] == 1)
+				x.insert(i);
+		}
+		petLogic.push_back(x);
+	}
+	//Have petrick's method table -> Combine to have all spawn
+	//The min spawn is what we need
+	set<set<int>> pComb;
+	set<int>prod;
+	getPossibleCombines(petLogic, 0, prod, pComb);
+	int min = 999;
+	for (set<set<int>>::iterator itr = pComb.begin(); itr != pComb.end(); itr++)
+	{
+		set<int> comb = *itr;
+		if (comb.size() < min)
+			min = comb.size();
+	}
+	set<set<int>> minPosComb;
+	for (set<set<int>>::iterator itr = pComb.begin(); itr != pComb.end(); itr++)
+	{
+		set<int> comb = *itr;
+		if (comb.size() == min)
+			minPosComb.insert(comb);
+	}
+	return minPosComb;
+}
+
+void LIST::getPossibleCombines(vector<set<int>> &petLogic, int level, set<int> prod, set<set<int>> &pComb)
+{
+	if (level >= petLogic.size())
+	{
+		set<int> x;
+		x = prod;
+		pComb.insert(x);
+		return;
+	}
+	else{
+		set<int>::iterator itr;
+		for (itr = petLogic[level].begin(); itr != petLogic[level].end(); itr++)
+		{
+			bool inserted = prod.insert(*itr).second;
+			getPossibleCombines(petLogic, level + 1, prod, pComb);
+			if (inserted)
+				prod.erase(*itr);
+		}
+	}
+}
+
+void LIST::displayBoolFunction(set<set<int>> minSpawns)
+{
+	cout << endl << "Tat ca cac cong thuc da thuc toi tieu:" << "\n\n";
+	for (set<set<int>>::iterator itr1 = minSpawns.begin(); itr1 != minSpawns.end(); itr1++)
+	{
+		set<int> minSpawn = *itr1;
+		for (set<int>::iterator itr2 = minSpawn.begin(); itr2 != minSpawn.end(); itr2++)
+		{
+			cout << bintoNameOfVariable(_data[*itr2].getBin());
+			cout << " + ";
+		}
+		cout << endl << endl;
+	}
+}
+
 // ===============================
 
 vector<TuToiTieu> solvePrimeImplicants(LIST a)
@@ -455,16 +572,22 @@ vector<TuToiTieu> solvePrimeImplicants(LIST a)
 	return result;
 }
 
-int** LIST::chartRemoveRedundant(const LIST &a)
-{
-	int**result;
-	*result = new int[this->_n];
-	for (int i = 0; i < _n; i++)
-		result[i] = new int[a._n];
-	for (int i = 0; i < _n; i++)
-	for (int j = 0; j < a._n; j++)
-		result[i][j] = _data[i].isEssential(a._data[j]);
 
+string bintoNameOfVariable(string bin)
+{
+	string result;
+	result = "";
+	for (int i = 0; i < bin.length(); i++)
+	{
+		if (bin[i] == '0')
+		{
+			result.push_back('!');
+			result.push_back(119 + i);
+		}
+		else if (bin[i] == '1')
+			result.push_back(119 + i);
+	}
+	return result;
 }
 
 

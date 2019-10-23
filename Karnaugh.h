@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <math.h>
+#include <set>
 using namespace std;
 
 //This algorithm is followed by Quine-McCluskey method
@@ -29,10 +30,12 @@ public:
 	int Bin2Dec();	//Chuyen binary sang decimal
 	int Str2integer();
 	TuToiTieu& operator= (const TuToiTieu &n);
+	int operator==(const TuToiTieu &n);
 	int checkTick();
 	int isCombined(const TuToiTieu &a);
 	TuToiTieu combine(TuToiTieu &a);
 	int isEssential(const TuToiTieu &a);
+
 	~TuToiTieu();
 };
 
@@ -50,17 +53,21 @@ public:
 	void sort();
 	void output();
 	void createData();
+	void removeDuplicates();
 	int checkTick();
 	vector<TuToiTieu> toVector();
 	LIST vectorToList(const vector<TuToiTieu> &a);
 	LIST& operator= (const LIST &n);
 	int size() { return _n; }
 	TuToiTieu& operator[](int i);
-	int** chartRemoveRedundant(const LIST &a);
+	int** createPrimeImplicantsTable(const LIST &a);
+	set<set<int>> allMinSpawn(int** arr, const LIST &a);
+	void getPossibleCombines(vector<set<int>> &petLogic, int level, set<int> prod, set<set<int>> &pComb);
+	void displayBoolFunction(set<set<int>> minSpawns);
 	~LIST();
 };
 
 vector<TuToiTieu> solvePrimeImplicants(LIST a);
-
+string bintoNameOfVariable(string bin);
 
 

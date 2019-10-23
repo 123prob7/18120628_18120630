@@ -55,10 +55,13 @@ void Menu::_drawMenu()
 				  LIST a;
 				  a.parseStr(a.tokenizeInputStr(s));
 				  a.createData();
+				  a.removeDuplicates();
 				  a.sort();
 				  LIST b;
 				  b.vectorToList(solvePrimeImplicants(a));
-				  b.output();
+				  int** tableOfPrimeImplicants = b.createPrimeImplicantsTable(a);
+				  set<set<int>> minSpawns = b.allMinSpawn(tableOfPrimeImplicants, a);
+				  b.displayBoolFunction(minSpawns);
 				  cout << "Nhan phim bat ky de quay lai";
 				  Nocursortype();
 				  _getch();
