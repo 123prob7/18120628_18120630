@@ -324,15 +324,18 @@ int Matrix::MatrixEquation(const Matrix& b)
 		A._data[i] = new float[_n + 1];
 	
 	for (int i = 0; i < _m; i++)
-	for (int j = 0; j < _n; j++)
-		A._data[i][j] = _data[i][j];
+		for (int j = 0; j < _n; j++)
+			A._data[i][j] = _data[i][j];
 	for (int i = 0; i < _m; i++)
 		A._data[i][_n] = b._data[i][0];
 
 	int rank_A = A.rank();
 	int rank_this = this->rank();
 	if (rank_this < rank_A)
+	{
 		cout << "He vo nghiem" << endl;
+		return 0;
+	}
 	else if (rank_A == rank_this && rank_A == _n)
 	{
 		cout << "He co nghiem duy nhat" << endl;
