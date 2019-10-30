@@ -347,11 +347,14 @@ int Matrix::MatrixEquation(const Matrix& b)
 		Matrix result(b);
 		result = temp*b;
 		result.output();
+		return 1;
 	}
 	else if (rank_A == rank_this && rank_A < _n)
 	{
 		cout << "He phuong trinh co vo so nghiem voi bac tu do la " << _n - rank_this << endl;
+		return 1;
 	}
-	return 1;
+	return 0;
+	
 }
 
